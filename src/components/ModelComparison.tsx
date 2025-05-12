@@ -144,7 +144,10 @@ const ModelComparison: React.FC<ModelMetricsProps> = ({ metrics }) => {
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="name" />
               <YAxis domain={[0, 1]} tickFormatter={(value) => value.toFixed(1)} />
-              <Tooltip formatter={(value) => [value.toFixed(3), "Score"]} />
+              <Tooltip formatter={(value) => {
+                // Make sure value is a number before using toFixed
+                return [typeof value === 'number' ? value.toFixed(3) : value, "Score"];
+              }} />
               <Legend />
               <Bar dataKey="random_forest" name="Random Forest" fill="#3b82f6" />
               <Bar dataKey="knn" name="KNN" fill="#10b981" />
@@ -171,7 +174,10 @@ const ModelComparison: React.FC<ModelMetricsProps> = ({ metrics }) => {
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="name" />
                 <YAxis domain={[0, 1]} tickFormatter={(value) => value.toFixed(1)} />
-                <Tooltip formatter={(value) => [value.toFixed(3), "R²"]} />
+                <Tooltip formatter={(value) => {
+                  // Make sure value is a number before using toFixed
+                  return [typeof value === 'number' ? value.toFixed(3) : value, "R²"];
+                }} />
                 <Legend />
                 <Bar dataKey="random_forest" name="Random Forest" fill="#3b82f6" />
                 <Bar dataKey="knn" name="KNN" fill="#10b981" />
@@ -192,7 +198,10 @@ const ModelComparison: React.FC<ModelMetricsProps> = ({ metrics }) => {
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="name" />
                 <YAxis />
-                <Tooltip formatter={(value) => [value.toFixed(3), "MSE"]} />
+                <Tooltip formatter={(value) => {
+                  // Make sure value is a number before using toFixed
+                  return [typeof value === 'number' ? value.toFixed(3) : value, "MSE"];
+                }} />
                 <Legend />
                 <Bar dataKey="random_forest" name="Random Forest" fill="#3b82f6" />
                 <Bar dataKey="knn" name="KNN" fill="#10b981" />
@@ -252,7 +261,10 @@ const ModelComparison: React.FC<ModelMetricsProps> = ({ metrics }) => {
                 <PolarGrid />
                 <PolarAngleAxis dataKey="model" />
                 <PolarRadiusAxis angle={30} domain={[0, 100]} />
-                <Tooltip formatter={(value) => [`${value.toFixed(1)}%`, "Performance"]} />
+                <Tooltip formatter={(value) => {
+                  // Make sure value is a number before using toFixed
+                  return [typeof value === 'number' ? value.toFixed(1) + '%' : value, "Performance"];
+                }} />
                 <Radar name="Mortality Classification" dataKey="mortality" stroke="#3b82f6" fill="#3b82f6" fillOpacity={0.6} />
                 <Radar name="Mortality Rate Prediction" dataKey="mortality_rate" stroke="#10b981" fill="#10b981" fillOpacity={0.6} />
                 <Radar name="Length of Stay Prediction" dataKey="los" stroke="#f59e0b" fill="#f59e0b" fillOpacity={0.6} />

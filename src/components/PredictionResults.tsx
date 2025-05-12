@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -195,7 +194,10 @@ const PredictionResults: React.FC<PredictionResultsProps> = ({ predictions }) =>
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis dataKey="name" />
                     <YAxis label={{ value: 'Mortality Risk (%)', angle: -90, position: 'insideLeft' }} />
-                    <Tooltip formatter={(value) => [`${value}%`, 'Mortality Risk']} />
+                    <Tooltip formatter={(value) => {
+                      // Make sure value is a number before using toFixed
+                      return [typeof value === 'number' ? `${value.toFixed(1)}%` : value, 'Mortality Risk'];
+                    }} />
                     <Legend />
                     <Bar dataKey="mortality" fill="#3b82f6" name="Mortality Risk (%)" />
                   </BarChart>
@@ -213,7 +215,10 @@ const PredictionResults: React.FC<PredictionResultsProps> = ({ predictions }) =>
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis dataKey="name" />
                     <YAxis label={{ value: 'Days', angle: -90, position: 'insideLeft' }} />
-                    <Tooltip formatter={(value) => [`${value.toFixed(1)} days`, 'Length of Stay']} />
+                    <Tooltip formatter={(value) => {
+                      // Make sure value is a number before using toFixed
+                      return [typeof value === 'number' ? `${value.toFixed(1)} days` : value, 'Length of Stay'];
+                    }} />
                     <Legend />
                     <Bar dataKey="los" fill="#10b981" name="Length of Stay (days)" />
                   </BarChart>
