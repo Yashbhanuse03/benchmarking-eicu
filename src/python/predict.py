@@ -120,9 +120,44 @@ def predict_patient_outcomes(patient_data, models=None, model_dir='models'):
     
     return predictions
 
+# Function to load external dataset
+def load_external_dataset(file_path):
+    """
+    Load dataset from external file (CSV)
+    
+    Parameters:
+    file_path (str): Path to the CSV file
+    
+    Returns:
+    pd.DataFrame: Loaded dataset
+    """
+    try:
+        # Try to load the dataset
+        data = pd.read_csv(file_path)
+        print(f"Successfully loaded dataset from {file_path} with {data.shape[0]} records and {data.shape[1]} features")
+        return data
+    except Exception as e:
+        print(f"Error loading dataset from {file_path}: {e}")
+        return None
+
 # Example usage
 if __name__ == "__main__":
-    # Example patient data
+    # Check if external dataset exists
+    external_data_path = "patient_data.csv"
+    if os.path.exists(external_data_path):
+        print(f"Found external dataset at {external_data_path}")
+        # Use external dataset
+        data = load_external_dataset(external_data_path)
+        if data is not None:
+            print("Using external dataset for training")
+            # Here you would call the train_models function from train_models.py
+            # with this dataset
+            from train_models import train_models, save_models, save_metrics
+            results, metrics = train_models(data)
+            save_models(results)
+            save_metrics(metrics)
+    
+    # Example patient data for prediction
     patient = {
         'age': 70,
         'gender': 1,  # male
