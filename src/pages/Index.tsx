@@ -41,6 +41,14 @@ const Index = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [activeTab, setActiveTab] = useState('input');
   const { toast } = useToast();
+  
+  // Reset data on page load/refresh
+  useEffect(() => {
+    // This will run when the component mounts (on page load or refresh)
+    setPatientData(defaultPatientData);
+    setPredictions(null);
+    setActiveTab('input');
+  }, []);
 
   const handleFormSubmit = async (formData: any) => {
     setIsLoading(true);
